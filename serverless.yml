@@ -1,0 +1,37 @@
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+service: rent-app-services
+frameworkVersion: '2'
+useDotenv: true
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-west-2'}
+  apiGateway:
+    shouldStartNameWithService: true
+  environment:
+    NODE_ENV: 14.17
+  iamRoleStatements: ${file(iam/usersTableIAM.yml)}
+resources:
+  Resources:
+    usersTable: ${file(resources/usersTable.yml):usersTable}
+functions:
+  app:
+    handler: dist/serverless.handler
+    events:
+      - http:
+          method: any
+          path: /{any+}
+custom:
+  usersTable:
+    name: rentappusers
+    arn: !GetAtt usersTable.Arn
+  dynamodb:
+    stages:
+      - ${self:provider.stage}
+    start:
+      migrate: true
+      port: 8000
+
