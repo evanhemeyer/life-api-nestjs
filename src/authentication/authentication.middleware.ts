@@ -7,12 +7,12 @@ import { ESAccessToken } from './authentication.types';
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
-    const token = req.headers.authorization;
-    if (!token) {
-      return res.status(401).send(Error('Unauthorized'));
-      next();
-    }
-    const decodedToken = jwtDecode<ESAccessToken>(token);
+    // const token = req.headers.authorization;
+    // if (!token) {
+    //   return res.status(401).send(Error('Unauthorized'));
+    //   next();
+    // }
+    // const decodedToken = jwtDecode<ESAccessToken>(token);
 
     //fetch user
     //set req.user = to fetched user

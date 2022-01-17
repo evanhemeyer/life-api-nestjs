@@ -7,4 +7,4 @@
     - 'dynamodb:UpdateItem'
     - 'dynamodb:DeleteItem'
   Resource:
-    - ${self:custom.usersTable.arn}
+    - ${self:custom.lifeAppTable.arn}

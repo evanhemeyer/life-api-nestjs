@@ -1,7 +1,7 @@
 plugins:
   - serverless-dynamodb-local
   - serverless-offline
-service: rent-app-services
+service: life-app-api
 frameworkVersion: '2'
 useDotenv: true
 provider:
@@ -13,10 +13,10 @@ provider:
     shouldStartNameWithService: true
   environment:
     NODE_ENV: 14.17
-  iamRoleStatements: ${file(iam/usersTableIAM.yml)}
+  iamRoleStatements: ${file(iam/lifeAppTableIAM.yml)}
 resources:
   Resources:
-    usersTable: ${file(resources/usersTable.yml):usersTable}
+    lifeAppTable: ${file(resources/lifeAppTable.yml):lifeAppTable}
 functions:
   app:
     handler: dist/serverless.handler
@@ -25,13 +25,12 @@ functions:
           method: any
           path: /{any+}
 custom:
-  usersTable:
-    name: rentappusers
-    arn: !GetAtt usersTable.Arn
+  lifeAppTable:
+    name: lifeApp
+    arn: !GetAtt lifeAppTable.Arn
   dynamodb:
     stages:
       - ${self:provider.stage}
     start:
       migrate: true
       port: 8000
-
