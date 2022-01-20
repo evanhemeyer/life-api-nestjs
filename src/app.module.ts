@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 
 import { AuthMiddleware } from './authentication/authentication.middleware';
-import { UserModule } from './user/user.module';
+import { UserModule } from './User/user.module';
 
 @Module({
   imports: [UserModule],

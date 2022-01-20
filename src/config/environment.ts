@@ -6,6 +6,10 @@ const Environment = IO.type({
   IS_OFFLINE: IO.string,
   DYNAMO_DB_REGION: IO.string,
   DYNAMO_DB_HOST: IO.string,
+  LEVEL: IO.string,
+  PLAID_SECRET: IO.string,
+  PLAID_CLIENT_ID: IO.string,
+  PLAID_ENV: IO.string,
 });
 
 export type Environment = IO.TypeOf<typeof Environment>;

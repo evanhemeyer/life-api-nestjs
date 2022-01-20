@@ -18,4 +18,20 @@ export class ApiConfigService {
   get dynamoDbHost(): string {
     return this.configService.get('DYNAMO_DB_HOST');
   }
+
+  get level(): string {
+    return this.configService.get('LEVEL');
+  }
+
+  get plaidSecret(): string {
+    return this.configService.get('PLAID_SECRET');
+  }
+
+  get plaidClientId(): string {
+    return this.configService.get('PLAID_CLIENT_ID');
+  }
+
+  get plaidEnv(): string {
+    return this.configService.get('PLAID_ENV');
+  }
 }
