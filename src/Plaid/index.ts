@@ -1,3 +1,4 @@
+import { InternalServerErrorException } from '@nestjs/common';
 import { pipe, TaskEither } from '@morphism/fp';
 import { Config, PlaidEnvironments, BuildConfigParams } from 'plaid';
 import { AxiosPromise, AxiosResponse } from 'plaid/node_modules/axios';
@@ -19,7 +20,10 @@ declare module '.' {
     export type Api = Plaid_.PlaidApi;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     export type Response<A> = AxiosResponse<A>;
-    export type Request<T> = TaskEither<Error, Response<T>>;
+    export type Request<T> = TaskEither<
+      InternalServerErrorException,
+      Response<T>
+    >;
     export function fromConfig(config: {
       clientId: string;
       secret: string;
@@ -27,11 +31,12 @@ declare module '.' {
     export function tryCatch<A>(request: AxiosPromise<A>): Request<A>;
   }
 }
+
 Plaid.fromConfig = (config) => pipe(buildConfig(config), fromConfig);
 Plaid.tryCatch = (request) =>
   TaskEither.tryCatch(
     () => request,
-    (err) => err as Error,
+    (err) => new InternalServerErrorException((err as Error).message),
   );
 
 export const fromConfig = (config: Config) => ({

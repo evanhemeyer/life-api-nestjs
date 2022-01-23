@@ -9,17 +9,15 @@ export namespace Account {}
 export type Accounts = Account[];
 export namespace Accounts {
   export namespace Remote {
-    export namespace Request {
-      export namespace Get {
-        export type Respone = Plaid.AccountsGetResponse;
+    export namespace Get {
+      export type Respone = Plaid.AccountsGetResponse;
 
-        export type Options = Plaid.AccountsGetRequest;
+      export type Options = Plaid.AccountsGetRequest;
 
-        export const request =
-          (plaid: Plaid) =>
-          (requestArgs: Options): Plaid.Request<Plaid.AccountsGetResponse> =>
-            Plaid.tryCatch(plaid.client.accountsGet(requestArgs));
-      }
+      export const request =
+        (plaid: Plaid) =>
+        (requestArgs: Options): Plaid.Request<Plaid.AccountsGetResponse> =>
+          Plaid.tryCatch(plaid.client.accountsGet(requestArgs));
     }
   }
 }

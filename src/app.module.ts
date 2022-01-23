@@ -4,12 +4,10 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-
 import { AuthMiddleware } from './authentication/authentication.middleware';
-import { UserModule } from './User/user.module';
 
 @Module({
-  imports: [UserModule],
+  imports: [],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

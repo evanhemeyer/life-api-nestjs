@@ -5,7 +5,7 @@ import { Environment } from './environment';
 
 @Injectable()
 export class ApiConfigService {
-  constructor(private configService: ConfigService<Environment>) {}
+  constructor(private configService: ConfigService<Environment>) { }
 
   get isOffline(): boolean {
     return this.configService.get('IS_OFFLINE') === 'true';
@@ -21,6 +21,13 @@ export class ApiConfigService {
 
   get level(): string {
     return this.configService.get('LEVEL');
+  }
+
+  get plaidConfig() {
+    return {
+      plaidSecret: this.configService.get('PLAID_SECRET'),
+      plaidClientId: this.configService.get('PLAID_CLIENT_ID')
+    }
   }
 
   get plaidSecret(): string {

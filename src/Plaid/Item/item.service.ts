@@ -1,3 +1,4 @@
+import { pipe } from '@morphism/fp';
 import {
   BadRequestException,
   Injectable,
@@ -5,6 +6,7 @@ import {
 } from '@nestjs/common';
 
 import { DynamoDBService } from '../../dynamodb/dynamodb.service';
+import { Item } from '.';
 
 @Injectable()
 export class ItemService {
@@ -16,5 +18,10 @@ export class ItemService {
 
   async getByUserId() {}
 
-  async create() {}
+  create(item: Item) {
+    return pipe(
+      Item.Data.toDDBModel(item, 'Item'),
+      this.dynamodDbService.put({ Item: item }),
+    );
+  }
 }
